@@ -1,12 +1,22 @@
 import time
 import ephem
 
+from picamera import PiCamera
+
+import os
+
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+camera = PiCamera()
+  camera.capture('home/pi/selfie.png')
+  camera.close()
+
 n = 0.0 
 
 name = "ISS (ZARYA)"
-line1 = "1 25544U 98067A   18355.62429255  .00000834  00000-0  19892-4 0  9995"
+line1 = "1 25544U 98067A   19023.36096824  .00000178  00000-0  10220-4 0  9998"
 
-line2 = "2 25544  51.6392 164.6201 0004717 167.6800 317.8237 15.54085122147663"
+line2 = "2 25544  51.6427   1.5297 0004758 302.2839 173.3538 15.53166566152756"
 
 iss = ephem.readtle(name, line1, line2)
 
@@ -19,12 +29,6 @@ print("%f" % (iss.sublat),"%f" %  n, ephem.degrees(n))
 """
 if ephem.degrees(iss.sublat) < -20:
     print("WTF")
-
-
-
-
-
-
 
 
 
