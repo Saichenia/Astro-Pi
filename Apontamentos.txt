@@ -1,0 +1,31 @@
+Bloco de Notas:
+
+velocidade angular da iss: 4º por minuto
+
+
+Test Run 1: Max Time (863 photos)
+
+Test Run 2: Max Time (603 photos)
+
+
+Coisas a corrigir: 
+
+rotação da chama, (RESOLVIDO? [CONFIRMAR QUE NÃO OCORRE MAIS])
+
+ver de onde vem os prints
+
+Rever o tamanho e número de imagens, já que landscape images ocupam mais espaço.
+
+Clear LED Matrix no fim (RESOLVIDO? [CONFIRMAR])
+
+Ver quanto tempo demora um loop para descontar no tempo total
+
+Testar com a image file do astropi da ISS e sem internet
+
+Comentar e mudar nomes de variaveis
+
+Mudar o nome para main.py
+
+Rever as cores da chama
+
+Ver mais exceptions
