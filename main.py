@@ -1,6 +1,7 @@
 import ephem
 import datetime
 from time import sleep
+
 from picamera import PiCamera
 
 from gpiozero import CPUTemperature
@@ -51,24 +52,23 @@ img2 = [
     o,o,r,e,r,o,o,o,
     ]
 
-longrad = 0
-latrad = 0
-
+#Variable that corresponds to the photo number
 global photo_counter
 photo_counter = 1
 
+#Checker is 1 if in an area of interess and 0 otherwise
 checker = 0
-cpu = CPUTemperature()
-       
-       
-# Set a logfile name
+
+      
+#Sets the logfile name and directory
 logzero.logfile(dir_path+"/data01.csv")
 
-# Set a custom formatter
+# Sets the formatter
 formatter = logging.Formatter('%(name)s - %(asctime)-15s - %(levelname)s: \n%(message)s');
 logzero.formatter(formatter)
 
 
+#  
 name = "ISS (ZARYA)"
 
 line1 = "1 25544U 98067A   19042.02450189  .00001556  00000-0  31680-4 0  9994"
@@ -80,26 +80,33 @@ iss = ephem.readtle(name, line1, line2)
 
 
 
-####
+# Initializes PiCamera and defines its resolution
 cam = PiCamera()
 cam.resolution = (2592,1944)
+
+
 iss.compute()
 
 def update_image(checker):
 
-        # a list with all possible rotation values
+    # a list with all possible rotation values
     orientation = [0,90,270,180]
     if checker == 0:
-    # pick one at random
+        # picks one at random
         rotation = random.choice(orientation)
-        # set the rotation
+        # sets the rotation
         sh.set_rotation(rotation)
+    
     elif checker == 1:
+        # Resets the rotation
         sh.set_rotation(0)
+        # Flickers the flame
         sh.flip_h()
 
-def get_latlon():
-    iss.compute() # Get the lat/long values from ephem
+def get_latlon(): # Function that assigns the EXIF data to the photos taken
+    
+    # Gets the lat/long values from ephem
+    iss.compute() 
 
     long_value = [float(i) for i in str(iss.sublong).split(":")]
 
@@ -109,6 +116,7 @@ def get_latlon():
         cam.exif_tags['GPS.GPSLongitudeRef'] = "W"
     else:
         cam.exif_tags['GPS.GPSLongitudeRef'] = "E"
+        
     cam.exif_tags['GPS.GPSLongitude'] = '%d/1,%d/1,%d/10' % (long_value[0], long_value[1], long_value[2]*10)
 
     lat_value = [float(i) for i in str(iss.sublat).split(":")]
@@ -121,35 +129,39 @@ def get_latlon():
         cam.exif_tags['GPS.GPSLatitudeRef'] = "N"
 
     cam.exif_tags['GPS.GPSLatitude'] = '%d/1,%d/1,%d/10' % (lat_value[0], lat_value[1], lat_value[2]*10)
+    
     return(str(lat_value), str(long_value))
 
 
-def get_photo():
+def get_photo():  # Function that takes photos and saves the Latitude and Longitude information on the data01.csv file 
     global photo_counter
     try:
          
-        # get latitude and longitude
+        # Gets Latitude and Longitude EXIF data
         lat, lon = get_latlon()
-        # Save the data to the file
-        logging.info("%s,%s,%s", "image_"+ str(photo_counter).zfill(5), lat, lon )
-        # use zfill to pad the integer value used in filename to 3 digits (e.g. 001, 002...)
-                    
+        
+        # Saves the data to the .csv file
+        logging.info("%s,%s,%s", "image_"+ str(photo_counter).zfill(5), lat, lon)
+        
+        
+        #Takes the photo
         cam.capture(dir_path+"/image_"+ str(photo_counter).zfill(5)+".jpg")
         photo_counter += 1
                     
     except Exception as e:
+       #Saves error information to the .csv file 
        logger.error("An error occurred: " + str(e))
        pass
                     
-# create a datetime variable to store the start time
+# Creates a datetime variable to store the start time
 start_time = datetime.datetime.now()
-# create a datetime variable to store the current time
-# (these will be almost the same at the start)
+
+# Creates a datetime variable to store the current time
 now_time = datetime.datetime.now()
-# run a loop for 2 minutes
+# Sets Sense Hat default image to img1 (Search Mode)
 sh.set_pixels(img1)
 
-while ((now_time < start_time + datetime.timedelta(minutes=175)) and (photo_counter < 980) and (cpu.temperature < 70)):
+while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_counter < 980) and (cpu.temperature < 70)):
     iss.compute()
     latrad = float("%f" % (iss.sublat))
     longrad = float("%f" % (iss.sublong))
