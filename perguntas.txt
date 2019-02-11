@@ -1,0 +1,6 @@
+What is the objective of your experiment?
+Our experiment’s objective is to study the evolution and recovery of burned areas, associated with wild or manmade forest fires across the globe (since the probability that we fly over any specific site is small). The observation method will be near infrared (NIR) photography, it is based on the principle that burned vegetation emits a characteristic intensity of NIR relative to the other channels, contrasting the brighter emission of healthy plant life and other landscapes.
+
+Describe how you will achieve these objectives.
+As the ISS is falling around the earth, we want pictures to only be taken that are likely to contain burned forests, for that purpose we consulted a map of seasonal fires, and started picking the places that usually have fires from a few months before to April, we also selected the Iberian peninsula since we’ll have more accessible resources to analyze the recovery of the forests. 
+For the concept to work we need to have only NIR light enter the Pi Noir Camera hence for that the blue filter is necessary. 
