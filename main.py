@@ -161,7 +161,7 @@ now_time = datetime.datetime.now()
 # Sets Sense Hat default image to img1 (Search Mode)
 sh.set_pixels(img1)
 
-#checks if the program is in condition to run, and repeats a cycle that ckecks whether a photo should be taken 
+#checks if the program is in condition to run, and repeats a cycle that checks whether a photo should be taken 
 while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_counter < 980) and (cpu.temperature < 75)):
     
     # current location of the ISS
@@ -180,9 +180,9 @@ while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_co
         (-1.333111< longrad < -0.588619 and -0.590034< latrad < -0.007321)]#Brazil
     
     central = [
-        (-0.171779 < longrad < 0.052704 and 0.61969 < latrad < 0.767325),#Ibéria
-        (-0.314378 < longrad < 0.75828 and 0.052333 < latrad < 0.280259),# Top africa
-        (0.216237 < longrad < 0.741116 and -0.614419 < latrad < -0.010986),#Mid africa
+        (-0.171779 < longrad < 0.052704 and 0.61969 < latrad < 0.767325),#Iberia
+        (-0.314378 < longrad < 0.75828 and 0.052333 < latrad < 0.280259),# Top Africa
+        (0.216237 < longrad < 0.741116 and -0.614419 < latrad < -0.010986),#Mid Africa
         (0.057017 < longrad < 0.537736 and 0.639903 < latrad < 0.814486)]#Mediterranean
     
     oceasia = [
@@ -202,7 +202,7 @@ while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_co
 #the first conditions check in which block the ISS should be, so it doesn't have the conditions of the other zones
 
     if longrad < -0.442:
-        if any(americas):  # if any of the conditions in the americas list if fullfilled, proceed 
+        if any(americas):  # if any of the conditions in the americas list is fullfilled, proceed 
             get_photo() #takes a photograph
             sh.set_pixels(img2) #if we're in a zone of interest, select the flame image
             checker = 1  # changes the checker to be different from when we're not in a zone of interest
@@ -219,7 +219,7 @@ while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_co
             sh.set_pixels(img2)
             checker = 1
             
-    # if the ISS is not over a zone of interest, the magnifying glass is selected 
+    # if the ISS is not over a zone of interest, the magnifying glass image is selected 
     if checker == 0:
        sh.set_pixels(img1)
         
@@ -240,6 +240,6 @@ while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_co
     
     now_time = datetime.datetime.now()
 
-cam.close()
+cam.close() 
 sh.clear()
-print("Finished. Signing out.")
+#print("Finished. Signing out.")
