@@ -56,7 +56,7 @@ img2 = [
 global photo_counter
 photo_counter = 1
 
-#Checker is 1 if in an area of interess and 0 otherwise
+#Checker is 1 if in an area of interest and 0 otherwise
 checker = 0
 
       
@@ -161,40 +161,51 @@ now_time = datetime.datetime.now()
 # Sets Sense Hat default image to img1 (Search Mode)
 sh.set_pixels(img1)
 
-while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_counter < 980) and (cpu.temperature < 70)):
+#checks if the program is in condition to run, and repeats a cycle that ckecks whether a photo should be taken 
+while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_counter < 980) and (cpu.temperature < 75)):
+    
+    # current location of the ISS
     iss.compute()
     latrad = float("%f" % (iss.sublat))
     longrad = float("%f" % (iss.sublong))
     
+    # We only want photos of certain places, so we defined some "rectangles" of minimum and maximum longitude and latitude
+    #The zones of interest are divided in 3 blocks so the condition checking is more efficient
+    
     americas = [
-        (-1.35616 < longrad < -0.85519 and 0.073888 < latrad < 0.207737), #venezuela
-        (-2.004805 < longrad < -1.649931 and 0.288185< latrad < 0.558909),#mexico
+        (-1.35616 < longrad < -0.85519 and 0.073888 < latrad < 0.207737), #Venezuela
+        (-2.004805 < longrad < -1.649931 and 0.288185< latrad < 0.558909),#Mexico
         (-2.214386 < longrad < -1.338161 and 0.52683 < latrad < 0.7972), #USA
         (-1.652101< longrad < -1.1442582 and 0.138603 < latrad < 0.379025),# Guatmala
         (-1.333111< longrad < -0.588619 and -0.590034< latrad < -0.007321)]#Brazil
     
     central = [
         (-0.171779 < longrad < 0.052704 and 0.61969 < latrad < 0.767325),#Ibéria
-        (-0.314378 < longrad < 0.75828 and 0.052333 < latrad < 0.280259),# top africa
-        (0.216237 < longrad < 0.741116 and -0.614419 < latrad < -0.010986),#mid africa
-        (0.057017 < longrad < 0.537736 and 0.639903 < latrad < 0.814486)]#mediterraneo
+        (-0.314378 < longrad < 0.75828 and 0.052333 < latrad < 0.280259),# Top africa
+        (0.216237 < longrad < 0.741116 and -0.614419 < latrad < -0.010986),#Mid africa
+        (0.057017 < longrad < 0.537736 and 0.639903 < latrad < 0.814486)]#Mediterranean
     
     oceasia = [
         (1.184735 < longrad < 1.509269 and 0.088706 < latrad < 0.613406),#India
         (1.604362 < longrad < 2.185311 and 0.146123 < latrad < 0.601894),#Myanmar
         (2.069162 < longrad < 2.423922 and 0.571374 < latrad < 0.844868),#Korea
         (2.111045 < longrad < 2.399285 and -0.413486 < latrad < -0.195962),#Top Australia
-        (1.997895 < longrad < 2.176838 and -0.490407 < latrad < -0.61162),# South left Australia
-        (2.377186 < longrad < 2.688272 and -0.675403 < latrad < -0.421843)]#South right Australia
+        (1.997895 < longrad < 2.176838 and -0.490407 < latrad < -0.61162),# Southwest Australia
+        (2.377186 < longrad < 2.688272 and -0.675403 < latrad < -0.421843)]#Southeast Australia
+    
     #print("Americas: ", americas)
     #print("Central: ", central)
     #print("Oceasia: ", oceasia)
-    #print(latrad, longrad)   
+    #print(latrad, longrad) 
+    
+
+#the first conditions check in which block the ISS should be, so it doesn't have the conditions of the other zones
+
     if longrad < -0.442:
-        if any(americas):
-            get_photo()
-            sh.set_pixels(img2)
-            checker = 1
+        if any(americas):  # if any of the conditions in the americas list if fullfilled, proceed 
+            get_photo() #takes a photograph
+            sh.set_pixels(img2) #if we're in a zone of interest, select the flame image
+            checker = 1  # changes the checker to be different from when we're not in a zone of interest
     
     elif -0.442 < longrad < 1.058:
         if any(central):
@@ -208,19 +219,24 @@ while ((now_time < start_time + datetime.timedelta(minutes = 175)) and (photo_co
             sh.set_pixels(img2)
             checker = 1
             
+    # if the ISS is not over a zone of interest, the magnifying glass is selected 
     if checker == 0:
        sh.set_pixels(img1)
         
-    sleep(2)
-
+    sleep(2) #two second pause
+    
+    # the selected image is displayed
     update_image(checker)
 
 # update the current time
     now_time = datetime.datetime.now()
-
+    
+#checks the temperature 
     cpu = CPUTemperature()
+    #print("Temp: ", cpu.temperature)   
+    
+#resets the checker value    
     checker = 0
-    #print("Temp: ", cpu.temperature)
     
     now_time = datetime.datetime.now()
 
