@@ -29,3 +29,10 @@ Mudar o nome para main.py - FEITO
 Rever as cores da chama - FEITO
 
 Ver mais exceptions
+
+
+COISAS AS FAZERES, TOMÁS:
+
+Verificar que no ficheiro data01.csv está image001 em vez de photo001
+
+Apagar o import time (amanhã)
