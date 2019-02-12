@@ -36,3 +36,5 @@ COISAS AS FAZERES, TOMÁS:
 Verificar que no ficheiro data01.csv está image001 em vez de photo001
 
 Apagar o import time (amanhã)
+
+fazer uma variavel glboal para somar a memória ocupada por cada foto
