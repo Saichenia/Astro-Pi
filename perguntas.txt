@@ -1,12 +1,20 @@
 What is the objective of your experiment?
-Our experiment’s objective is to study the evolution and recovery of burned areas, associated with wild or manmade forest fires across the globe (since the probability that we fly over any specific site is small). The observation method will be near infrared (NIR) photography, it is based on the principle that burned vegetation emits a characteristic intensity of NIR relative to the other channels, contrasting the brighter emission of healthy plant life and other landscapes.
+Our experiment’s objective is to study the evolution and recovery of burned areas, associated with wild or manmade forest fires across the
+globe (since the probability that we fly over any specific site is small). The observation method will be near infrared (NIR) photography,
+it is based on the principle that burned vegetation emits a characteristic intensity of NIR relative to the other channels, contrasting the brighter emission of healthy plant life and other landscapes.
 
 Describe how you will achieve these objectives.
-As the ISS is orbiting the earth, we only want pictures that are likely to contain burned forests. For that purpose we consulted a map of seasonal fires and started picking the places that usually have fires a few months before April. We also selected the Iberian Peninsula since we’ll have more accessible resources to analyze the recovery of the forests. 
+As the ISS is orbiting the earth, we only want pictures that are likely to contain burned forests. For that purpose we consulted a map of
+seasonal fires and started picking the places that usually have fires a few months before April. We also selected the Iberian Peninsula
+since we’ll have more accessible resources to analyze the recovery of the forests. 
 For the concept to work we need to have only NIR light enter the Pi Noir Camera hence the blue filter is necessary. 
-Our program evaluates the ISS position every two seconds, checking whether it is inside one of the zones of interest. If so, a picture is taken and saves the corresponding longitude and latitude to a CSV file and as EXIF data. 
+Our program evaluates the ISS position every two seconds, checking whether it is inside one of the zones of interest. If so, a picture is
+taken and saves the corresponding longitude and latitude to a CSV file and as EXIF data. 
 
 
 What do you think the result of your experiment will be?
 
-For the data collection part of the experiment, based on the test runs we made, the program is expected to take around 700 photographs. We don't know exactly which places we'll go over but our catalogue is maximizing the chance for relevant observations. These pictures will be analyzed using an index that gives higher values for burned vegetation based on normalized NIR intensity, resulting in grey scale images. Equiped with a map of burned areas, we can look at images of ealier fires to evaluate their recovery. 
+For the data collection part of the experiment, based on the test runs we made, the program is expected to take around 700 photographs. We
+don't know exactly which places we'll go over but our catalogue is maximizing the chance for relevant observations. These pictures will be
+analyzed using an index that gives higher values for burned vegetation based on normalized NIR intensity, resulting in grey scale images. 
+Equiped with a map of burned areas, we can look at images of ealier fires to evaluate their recovery. 
