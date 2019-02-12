@@ -10,22 +10,22 @@ Test Run 2: Max Time (603 photos)
 
 Coisas a corrigir: 
 
-rotação da chama, (RESOLVIDO? [CONFIRMAR QUE NÃO OCORRE MAIS])
+rotação da chama, FEITO
 
-ver de onde vem os prints
+ver de onde vem os prints FEITO
 
 Rever o tamanho e número de imagens, já que landscape images ocupam mais espaço.
 
-Clear LED Matrix no fim (RESOLVIDO? [CONFIRMAR])
+Clear LED Matrix no fim  - FEITO
 
-Ver quanto tempo demora um loop para descontar no tempo total
+Ver quanto tempo demora um loop para descontar no tempo total - FEITO
 
 Testar com a image file do astropi da ISS e sem internet
 
-Comentar e mudar nomes de variaveis
+Comentar e mudar nomes de variaveis - FEITO
 
-Mudar o nome para main.py
+Mudar o nome para main.py - FEITO
 
-Rever as cores da chama
+Rever as cores da chama - FEITO
 
 Ver mais exceptions
